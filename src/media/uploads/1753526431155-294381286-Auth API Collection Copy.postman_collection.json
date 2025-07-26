@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "814d04cb-ff0e-4a18-ac20-a0a57a9deb2b",
+		"name": "Auth API Collection Copy",
+		"description": "Test user signup and login APIs with JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30315429",
+		"_collection_link": "https://planetary-shuttle-487933.postman.co/workspace/My-Workspace~c05c6d90-61c6-4cce-817a-74cde46ff673/collection/30315429-814d04cb-ff0e-4a18-ac20-a0a57a9deb2b?action=share&source=collection_link&creator=30315429"
+	},
+	"item": [
+		{
+			"name": "Signup User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_name\": \"John\",\n  \"email\": \"john@stat.com\",\n  \"password\": \"Password123\",\n  \"enabled\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"john@test.com\",\n  \"password\": \"Password123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg4M2Q4YWRiNmZkM2Q1OTlhNzA0ZjExIn0sImlhdCI6MTc1MzQ3MjEwNSwiZXhwIjoxNzU0MDc2OTA1fQ.Fzy7MuKlgBThcMOm-jIOZwKkMuGDe_Cp8g7MLCy5c0U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "file upload",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg4M2Q4YWRiNmZkM2Q1OTlhNzA0ZjExIn0sImlhdCI6MTc1MzUyMTczOCwiZXhwIjoxNzUzNTI1MzM4fQ.n3Z2KIkggxUk7c8arj8WRVs7UqwK_NOJXdFM7hekUgk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Nabeel Hassan/Downloads/pexels-bertellifotografia-28809214.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/file/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"file",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get files",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg4M2Q4YWRiNmZkM2Q1OTlhNzA0ZjExIn0sImlhdCI6MTc1MzUyNjA2NSwiZXhwIjoxNzUzNTI5NjY1fQ.YkHyT369Sx3e8Afk3YxRaTc0oLqPyVoqjPnA2iTX_e8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Nabeel Hassan/Downloads/pexels-bertellifotografia-28809214.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/file/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"file",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get file by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg4M2Q4YWRiNmZkM2Q1OTlhNzA0ZjExIn0sImlhdCI6MTc1MzUyNjA2NSwiZXhwIjoxNzUzNTI5NjY1fQ.YkHyT369Sx3e8Afk3YxRaTc0oLqPyVoqjPnA2iTX_e8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Nabeel Hassan/Downloads/pexels-bertellifotografia-28809214.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/file/6884a113550447ea2fdf0a5e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"file",
+						"6884a113550447ea2fdf0a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "del file by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg4M2Q4YWRiNmZkM2Q1OTlhNzA0ZjExIn0sImlhdCI6MTc1MzUyNjA2NSwiZXhwIjoxNzUzNTI5NjY1fQ.YkHyT369Sx3e8Afk3YxRaTc0oLqPyVoqjPnA2iTX_e8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Nabeel Hassan/Downloads/pexels-bertellifotografia-28809214.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/file/6884a113550447ea2fdf0a5e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"file",
+						"6884a113550447ea2fdf0a5e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

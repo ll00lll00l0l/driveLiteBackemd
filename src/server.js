@@ -1,14 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require('body-parser');
-const path = require('path');
 
 const connectDB = require('./db/conn');
 const appRoutes = require('./routes');
-const { uploadImage } = require("./controllers/mediaController");
-const router = require("./routes");
-const upload = require("./middleware/uploadMiddleware");
-const { resizeImage } = require("./controllers/resizeImage.controller");
 
 require("dotenv").config({ path: ".env" });
 
@@ -23,10 +18,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(bodyParser.json());
-app.use('/media', express.static(path.join(__dirname, 'media')));
 app.use('/', appRoutes);
-router.post("/api/upload", upload.single("image"), uploadImage);
-router.get("/api/resize", resizeImage);
+
 
 connectDB();
 
