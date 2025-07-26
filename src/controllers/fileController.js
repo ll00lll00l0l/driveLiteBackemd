@@ -6,21 +6,22 @@ exports.uploadFile = async (req, res) => {
     const file = req.file;
 
     const newFile = new File({
-      filename: file.filename,
+      filename: file.key,
       originalname: file.originalname,
       size: file.size,
       contentType: file.mimetype,
-      url: `${req.protocol}://${req.get('host')}/media/uploads/${file.filename}`,
+      url: file.location,
       user: req.user._id
     });
 
     await newFile.save();
 
-    res.status(201).json({ status: true, message: 'File uploaded', data: newFile });
+    res.status(201).json({ status: true, message: 'File uploaded to S3', data: newFile });
   } catch (err) {
     res.status(500).json({ status: false, message: err.message });
   }
 };
+
 
 exports.getAllFiles = async (req, res) => {
   const files = await File.find({ user: req.user._id }).sort({ uploadedAt: -1 });
