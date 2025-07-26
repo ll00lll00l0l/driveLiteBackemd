@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const connectDB = require('./db/conn');
 const appRoutes = require('./routes');
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(bodyParser.json());
+app.use('/media', express.static(path.join(__dirname, 'media')));
 app.use('/', appRoutes);
 
 

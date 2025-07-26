@@ -23,8 +23,28 @@ exports.uploadFile = async (req, res) => {
 };
 
 exports.getAllFiles = async (req, res) => {
-  const files = await File.find({ user: req.user._id }).sort({ uploadedAt: -1 });
-  res.json({ status: true, data: files });
+  try {
+    const { limit = 10, page = 1, fileType, } = req.query;
+    const query = { user: req.user._id };
+
+    if (fileType) query.contentType = fileType;
+    const files = await File.find(query)
+      .sort({ uploadedAt: -1 })
+      .limit(parseInt(limit))
+      .skip((parseInt(page) - 1) * parseInt(limit));
+
+    const total = await File.countDocuments(query);
+
+    res.json({
+      status: true,
+      total,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      data: files,
+    });
+  } catch (error) {
+    res.status(500).json({ status: false, message: 'Failed to fetch files', error });
+  }
 };
 
 exports.getFileById = async (req, res) => {
