@@ -26,7 +26,7 @@ const signUpUser = async (req, res) => {
     const payload = { user: { id: newUser.id } };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '30sec',
     });
 
     const refreshToken = jwt.sign(
@@ -74,7 +74,7 @@ const loginUser = async (req, res) => {
     const payload = { user: { id: user.id } };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '20sec',
     });
 
     const refreshToken = jwt.sign(
