@@ -5,7 +5,7 @@ const path = require('path');
 
 const connectDB = require('./db/conn');
 const appRoutes = require('./routes');
-const { uploadImage } = require("./controllers/mediaController");
+const { uploadImage } = require("./controllers/mediaController.js");
 const router = require("./routes");
 const upload = require("./middleware/uploadMiddleware");
 const { resizeImage } = require("./controllers/resizeImage.controller");
