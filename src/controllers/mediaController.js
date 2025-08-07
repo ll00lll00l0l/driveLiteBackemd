@@ -7,18 +7,17 @@ const uploadImage = async (req, res) => {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  const originalPath = req.file.path;
   const webpDir = path.join(__dirname, "../media/webp");
   fs.mkdirSync(webpDir, { recursive: true });
 
-  const baseName = path.parse(req.file.filename).name;
-  const resizedFilename = `${baseName}-resized.webp`;
+  const timestamp = Date.now();
+  const resizedFilename = `${timestamp}-resized.webp`;
   const resizedPath = path.join(webpDir, resizedFilename);
 
   const { width, height, offsetX, offsetY } = req.body;
 
   try {
-    const image = sharp(originalPath);
+    const image = sharp(req.file.buffer);
 
     if (width && height && offsetX && offsetY) {
       await image
@@ -49,4 +48,47 @@ const uploadImage = async (req, res) => {
   }
 };
 
-module.exports = { uploadImage };
+const getAllWebpImages = (req, res) => {
+  const webpDir = path.join(__dirname, "../media/webp");
+
+  fs.readdir(webpDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ status: false, message: "Failed to read directory" });
+    }
+
+    const webpFiles = files.filter(file => file.endsWith(".webp"));
+
+    const fullUrls = webpFiles.map(file => {
+      return `${req.protocol}://${req.get("host")}/media/webp/${file}`;
+    });
+
+    res.status(200).json({
+      status: true,
+      count: webpFiles.length,
+      files: fullUrls,
+    });
+  });
+};
+
+const deleteWebpImage = (req, res) => {
+  const filename = req.params.filename;
+
+  if (!filename.endsWith(".webp")) {
+    return res.status(400).json({ status: false, message: "Only .webp files can be deleted" });
+  }
+
+  const filePath = path.join(__dirname, `../media/webp/${filename}`);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ status: false, message: "Image not found" });
+  }
+
+  try {
+    fs.unlinkSync(filePath);
+    res.status(200).json({ status: true, message: "Image deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Failed to delete image" });
+  }
+};
+
+module.exports = { uploadImage ,getAllWebpImages ,deleteWebpImage};
